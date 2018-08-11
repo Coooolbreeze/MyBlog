@@ -18,6 +18,14 @@ import TheMenu from './components/TheMenu.vue'
 import TheHeader from './components/TheHeader.vue'
 import TheLogin from './components/TheLogin.vue'
 import TheBlog from './components/TheBlog.vue'
+import BlogList from './components/BlogList.vue'
+import BlogListCard from './components/BlogListCard.vue'
+import BlogSidebar from './components/BlogSidebar.vue'
+import BlogDetail from './components/BlogDetail.vue'
+import BlogDetailContent from './components/BlogDetailContent.vue'
+import BlogTags from './components/BlogTags.vue'
+import TheCardForBlogTags from './components/TheCardForBlogTags.vue'
+import TheCardForLinks from './components/TheCardForLinks.vue'
 import TheAbout from './components/TheAbout.vue'
 import TheFooter from './components/TheFooter.vue'
 
@@ -32,6 +40,14 @@ export default {
     TheHeader,
     TheLogin,
     TheBlog,
+    BlogList,
+    BlogListCard,
+    BlogSidebar,
+    BlogDetail,
+    BlogDetailContent,
+    BlogTags,
+    TheCardForBlogTags,
+    TheCardForLinks,
     TheAbout,
     TheFooter
   }
