@@ -1,0 +1,12 @@
+module.exports = {
+  oss: {
+    host: '',
+    region: '',
+    accessKeyId: '',
+    accessKeySecret: '',
+    bucket: ''
+  },
+  api: {
+    baseURL: ''
+  }
+}

@@ -1,0 +1,73 @@
+<template>
+  <div id="list" v-if="postList">
+    <blog-list-card
+      v-for="post in postList.data"
+      :key="post.id"
+      :post="post"
+    />
+
+    <paginate
+      v-if="postList.data && postList.last_page > 1"
+      :page-count="postList.last_page"
+      :current-page="page"
+    />
+  </div>
+</template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+import notify from './notification/function.js'
+import BlogListCard from './BlogListCard.vue'
+
+export default {
+  components: {
+    BlogListCard
+  },
+  asyncData ({ store, router }) {
+    return store.dispatch('fetchPosts', router.currentRoute.query)
+  },
+  mounted () {
+    document.addEventListener('keydown', this.onKeydown)
+    !this.postList && this.fetchPosts(this.query)
+  },
+  beforeRouteUpdate (to, from, next) {
+    if (!this.postsList[to.query.page || 1]) {
+      this.fetchPosts(to.query).then(_ => next())
+    } else next()
+  },
+  beforeRouteLeave (to, from, next) {
+    document.removeEventListener('keydown', this.onKeydown)
+    if (to.name !== 'blog-detail') notify({ content: '暂未开放' })
+    else {
+      if (to.name === 'blog-detail' && !this.posts[to.params.id]) {
+        this.fetchPost(to.params.id).then(_ => next())
+      } else {
+        this.watchPost(to.params.id)
+        next()
+      }
+    }
+  },
+  computed: {
+    ...mapState(['postsList', 'posts']),
+    query: function () {
+      return this.$route.query
+    },
+    page: function () {
+      return this.query.page ? parseInt(this.query.page) : 1
+    },
+    postList: function () {
+      return this.postsList[this.page]
+    }
+  },
+  methods: {
+    ...mapActions(['fetchPosts', 'fetchPost', 'watchPost']),
+    onKeydown: function (event) {
+      if (event.keyCode === 37 && this.page > 1) {
+        this.$router.push(this.$route.fullPath + '?page=' + (this.page - 1))
+      } else if (event.keyCode === 39 && this.page < this.postList.last_page) {
+        this.$router.push(this.$route.fullPath + '?page=' + (this.page + 1))
+      }
+    }
+  }
+}
+</script>
