@@ -1,7 +1,7 @@
 <template>
   <div id="tags">
     <h3>标签云</h3>
-    <tag v-if="tags" :tags="tags" @tagClick="onTagClick" />
+    <tag v-if="tags" :tags="tags" />
   </div>
 </template>
 
@@ -16,10 +16,7 @@ export default {
     ...mapState(['tags'])
   },
   methods: {
-    ...mapActions(['fetchTags']),
-    onTagClick: function (tag) {
-      console.log(tag)
-    }
+    ...mapActions(['fetchTags'])
   }
 }
 </script>
