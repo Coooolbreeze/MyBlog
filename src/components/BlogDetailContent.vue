@@ -121,11 +121,13 @@ export default {
         line-height 1em
       svg
         padding-right 0.2rem
+        position relative
+        bottom .08em
       .icon-shijian
-        font-size .8rem
+        font-size 0.8rem
       .icon-zuozhe
-        font-size .85rem
-        line-height .5em
+        font-size 0.82rem
+        line-height 0.5em
   .detail
     margin 1.5em
     margin-top 0
@@ -180,9 +182,9 @@ export default {
     h1
       font-size 1.2rem
     .about
-      margin 0.3em 0 i {
-        font-size: 0.78rem
-      }
+      margin 0.3em 0
+      i
+        font-size 0.78rem
     .detail
       margin 0.8em 0
       font-size 0.9rem
