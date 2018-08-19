@@ -182,9 +182,9 @@ export default {
     h1
       font-size 1.2rem
     .about
-      margin 0.3em 0
+      margin .8em 0
       i
-        font-size 0.78rem
+        font-size .8rem
     .detail
       margin 0.8em 0
       font-size 0.9rem
