@@ -107,12 +107,9 @@ export default {
     display flex
     justify-content center
     align-items center
-    margin 1.3em 0
-    height 0
-    background red
+    margin 0.9em 0
     i
       display flex
-      height 0
       align-items center
       font-size 0.9rem
       color #999999
@@ -120,6 +117,8 @@ export default {
       font-style normal
       &:nth-child(1)
         padding-left 0
+      span
+        line-height 1em
       svg
         padding-right 0.2rem
       .icon-haoping
@@ -178,8 +177,9 @@ export default {
     h1
       font-size 1.2rem
     .about
-      margin 0.3em 0 i
-        font-size 0.78rem
+      margin 0.3em 0 i {
+        font-size: 0.78rem
+      }
     .detail
       margin 0.8em 0
       font-size 0.9rem

@@ -13,26 +13,26 @@
               <svg class="icon icon-shijian" aria-hidden="true">
                 <use xlink:href="#icon-shijian" />
               </svg>
-              {{post.created_at}}
+              <span>{{post.created_at}}</span>
             </i>
             <div class="view-like">
               <i>
                 <svg class="icon icon-browse" aria-hidden="true">
                   <use xlink:href="#icon-browse" />
                 </svg>
-                {{post.watch}}
+                <span>{{post.watch}}</span>
               </i>
               <i v-if="isLike" style="color:#2196f3" @click.prevent="likeCancel(post.id)">
                 <svg class="icon icon-praise-fill" aria-hidden="true">
                   <use xlink:href="#icon-praise_fill" />
                 </svg>
-                {{post.like}}
+                <span>{{post.like}}</span>
               </i>
               <i v-else @click.prevent="like(post.id)">
                 <svg class="icon icon-praise" aria-hidden="true">
                   <use xlink:href="#icon-praise" />
                 </svg>
-                {{post.like}}
+                <span>{{post.like}}</span>
               </i>
             </div>
           </div>
@@ -134,6 +134,8 @@ export default {
           font-style normal
           &:nth-child(1)
             padding-left 0
+          span
+            line-height 1em
           svg
             padding-right 0.2rem
           .icon-haoping
