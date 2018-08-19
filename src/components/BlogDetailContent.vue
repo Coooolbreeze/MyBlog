@@ -121,8 +121,11 @@ export default {
         line-height 1em
       svg
         padding-right 0.2rem
-      .icon-haoping
-        font-size 0.8rem
+      .icon-shijian
+        font-size .8rem
+      .icon-zuozhe
+        font-size .85rem
+        line-height .5em
   .detail
     margin 1.5em
     margin-top 0

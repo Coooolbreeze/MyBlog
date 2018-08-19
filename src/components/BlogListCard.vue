@@ -134,8 +134,6 @@ export default {
           font-style normal
           &:nth-child(1)
             padding-left 0
-          span
-            line-height 1em
           svg
             padding-right 0.2rem
           .icon-haoping
