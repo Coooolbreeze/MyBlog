@@ -3,11 +3,10 @@ import notify from '../components/notification/function'
 
 export default {
   login ({ commit, state }, { username, password }) {
-    return model.login(username, password)
-      .then(data => {
-        model.token.set(data)
-        notify({ content: '登录成功' })
-      })
+    return model.login(username, password).then(data => {
+      model.token.set(data)
+      notify({ content: '登录成功' })
+    })
   },
   fetchLinks ({ commit, state }) {
     return model.getLinks().then(res => commit('fillLinks', res))
@@ -24,8 +23,12 @@ export default {
   fetchPost ({ commit, state }, id) {
     return model.getPost(id).then(res => commit('fillPost', res))
   },
-  watchPost ({commit, state}, id) {
+  watchPost ({ commit, state }, id) {
     commit('addPostWatch', parseInt(id))
     return model.watchPost(id)
+  },
+  likePost ({ commit, state }, id) {
+    commit('addPostLike', parseInt(id))
+    return model.likePost(id)
   }
 }

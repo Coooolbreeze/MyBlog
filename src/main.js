@@ -1,6 +1,14 @@
+import Vue from 'vue'
 import createApp from './create-app'
 import bus from './util/bus'
+
+import Hlghlight from './components/highlight/highlight'
+import VueSimplemde from 'vue-simplemde'
+
 import './assets/lib/iconfont'
+
+Vue.use(Hlghlight)
+Vue.use(VueSimplemde)
 
 const { app, router, store } = createApp()
 

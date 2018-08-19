@@ -1,64 +1,52 @@
-html,body
-    margin: 0
-    padding: 0
-    width: 100%
-    height: 100%
-
+html, body
+  margin 0
+  padding 0
+  width 100%
+  height 100%
+  -webkit-text-size-adjust 100%
+  -webkit-tap-highlight-color rgba(0, 0, 0, 0)
 body
-    font: calc(100vw/3.75) "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;
-    background-size: cover;
-    background-position: ceil(0);
-    background-color: #ececec;
-    color: #212121;
-    font-size: 1.1rem;
-
+  font calc((100vw / 3.75)) 'Helvetica Neue', Helvetica, Arial, 'Microsoft Yahei', 'Hiragino Sans GB', 'Heiti SC', 'WenQuanYi Micro Hei', sans-serif
+  background-size cover
+  background-position ceil(0)
+  background-color #ececec
+  color #212121
+  font-size 1.1rem
 ::-webkit-scrollbar
-  width: .2em;
-
+  width 0.2em
 ::-webkit-scrollbar-thumb
-  border-radius: 10px
-  background: #2196f3
-
+  border-radius 10px
+  background #2196f3
 ::-webkit-scrollbar-track
-  background: #ededed
-
+  background #ededed
 .container
-  display: flex;
-  width: 85%;
-  height: 100%;
-  margin: 0 auto;
-
+  display flex
+  width 85%
+  height 100%
+  margin 0 auto
 a
-  text-decoration: none;
-  color: #212121;
-
+  text-decoration none
+  color #212121
 input, button
-  border: 0;
-  border-radius: 0;
-  box-sizing: border-box;
-  height 2.7em;
-  padding 0 .9em;
-  outline: none;
-
+  border 0
+  border-radius 0
+  box-sizing border-box
+  height 2.7em
+  padding 0 0.9em
+  outline none
 input
-  background: #ffffff
-
-
+  background #ffffff
 button
-  background-color: #0d60c7;
-  cursor: pointer;
-  color: #eaeaea;
-  transition: all 0.3s;
-
-  &:hover {
-    color: #ffffff;
-    background-color: darken(#0d60c7, 10)
-  }
-
-.icon {
-  display: flex;
-  width: 1.2em;
-  height: 1.2em;
-  fill: currentColor;
-  overflow: hidden;
-}
+  background-color #0d60c7
+  cursor pointer
+  color #eaeaea
+  transition all 0.3s
+  &:hover
+    color #ffffff
+    background-color darken(#0d60c7, 10)
+.icon
+  display flex
+  width 1.2em
+  height 1.2em
+  fill currentColor
+  overflow hidden

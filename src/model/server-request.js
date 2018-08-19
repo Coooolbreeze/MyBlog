@@ -16,10 +16,12 @@ export default class Request {
     return baseRequest({
       url,
       params
-    }).then(res => {
-      return res.data.data
-    }).catch(err => {
-      throw Error(err.response)
     })
+      .then(res => {
+        return res.data.data
+      })
+      .catch(err => {
+        throw Error(err.response)
+      })
   }
 }

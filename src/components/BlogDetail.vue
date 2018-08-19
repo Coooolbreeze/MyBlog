@@ -1,38 +1,22 @@
 <template>
   <div id="detail">
-    <transition
-      style="position:relative;"
-      :name="transitionName"
-      mode="out-in"
-      v-if="post"
-    >
-      <blog-detail-content
-        :style="!showDetail ? 'position:absolute;top:0' : ''"
-        v-if="showDetail"
-        key="first"
-        :post="post"
-        @touchstart.native="onTouchstart"
-        @touchend.native="onTouchend"
-      />
-      <blog-detail-content
-        :style="showDetail ? 'position:absolute;top:0' : ''"
-        v-else
-        key="last"
-        :post="post"
-        @touchstart.native="onTouchstart"
-        @touchend.native="onTouchend"
-      />
+    <transition style="position:relative;" :name="transitionName" mode="out-in" v-if="post">
+      <blog-detail-content :style="!showDetail ? 'position:absolute;top:0' : ''" v-if="showDetail" key="first" :post="post" @touchstart.native="onTouchstart" @touchend.native="onTouchend" />
+      <blog-detail-content :style="showDetail ? 'position:absolute;top:0' : ''" v-else key="last" :post="post" @touchstart.native="onTouchstart" @touchend.native="onTouchend" />
     </transition>
+    <!-- <the-comment /> -->
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 import notify from './notification/function.js'
+import TheComment from './TheComment.vue'
 import BlogDetailContent from './BlogDetailContent.vue'
 
 export default {
   components: {
+    TheComment,
     BlogDetailContent
   },
   data () {
@@ -60,12 +44,19 @@ export default {
   },
   beforeRouteLeave (to, from, next) {
     document.removeEventListener('keydown', this.onKeydown)
-    if (to.name !== 'blog-list' && to.name !== 'blog-tags') notify({ content: '暂未开放' })
-    else {
+    if (to.name !== 'blog-list' && to.name !== 'blog-tags') {
+      notify({ content: '暂未开放' })
+    } else {
       if (to.name === 'blog-list' && !this.postsList[to.query.page || 1]) {
         this.fetchPosts(to.query).then(_ => next())
-      } else if (to.name === 'blog-tags' && (!this.tagPosts[to.params.id] || !this.tagPosts[to.params.id][to.query.page || 1])) {
-        this.fetchTagPosts({ id: to.params.id, data: to.query }).then(_ => next())
+      } else if (
+        to.name === 'blog-tags' &&
+        (!this.tagPosts[to.params.id] ||
+          !this.tagPosts[to.params.id][to.query.page || 1])
+      ) {
+        this.fetchTagPosts({ id: to.params.id, data: to.query }).then(_ =>
+          next()
+        )
       } else next()
     }
   },
@@ -113,21 +104,17 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-#detail {
-  overflow-x: hidden;
-}
-.right-enter-active, .left-enter-active {
-  transition: all .4s ease;
-}
-.right-leave-active, .left-leave-active {
-  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.right-enter, .left-leave-to {
-  transform: translateX(-300px);
-  opacity: 0;
-}
-.left-enter, .right-leave-to {
-  transform: translateX(300px);
-  opacity: 0;
-}
+#detail
+  padding 0 .8em
+  overflow-x hidden
+.right-enter-active, .left-enter-active
+  transition all 0.4s ease
+.right-leave-active, .left-leave-active
+  transition all 0.2s cubic-bezier(1, 0.5, 0.8, 1)
+.right-enter, .left-leave-to
+  transform translateX(-300px)
+  opacity 0
+.left-enter, .right-leave-to
+  transform translateX(300px)
+  opacity 0
 </style>

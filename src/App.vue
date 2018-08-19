@@ -24,6 +24,7 @@ import BlogSidebar from './components/BlogSidebar.vue'
 import BlogDetail from './components/BlogDetail.vue'
 import BlogDetailContent from './components/BlogDetailContent.vue'
 import BlogTags from './components/BlogTags.vue'
+import TheComment from './components/TheComment.vue'
 import TheCardForBlogTags from './components/TheCardForBlogTags.vue'
 import TheCardForLinks from './components/TheCardForLinks.vue'
 import TheAbout from './components/TheAbout.vue'
@@ -46,6 +47,7 @@ export default {
     BlogDetail,
     BlogDetailContent,
     BlogTags,
+    TheComment,
     TheCardForBlogTags,
     TheCardForLinks,
     TheAbout,

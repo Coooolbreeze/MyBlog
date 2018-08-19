@@ -23,7 +23,9 @@ const delCookie = name => {
   let exp = new Date()
   exp.setTime(exp.getTime() - 1)
   let cval = getCookie(name)
-  if (cval != null) document.cookie = `${name}=${cval};expires=${exp.toGMTString()}`
+  if (cval != null) {
+    document.cookie = `${name}=${cval};expires=${exp.toGMTString()}`
+  }
 }
 
 export default {
@@ -46,17 +48,19 @@ export default {
       url: '/refresh',
       headers: { token },
       method: 'POST'
-    }).then(resp => {
-      this.set(resp.data.data)
-    }).catch(err => {
-      if (err.response.status === 401) {
-        this.delete()
-        notify({
-          content: '登录已失效，请重新登录'
-        })
-        bus.$emit('auth')
-      } else console.log(err)
-      throw Error(err)
     })
+      .then(resp => {
+        this.set(resp.data.data)
+      })
+      .catch(err => {
+        if (err.response.status === 401) {
+          this.delete()
+          notify({
+            content: '登录已失效，请重新登录'
+          })
+          bus.$emit('auth')
+        } else console.log(err)
+        throw Error(err)
+      })
   }
 }

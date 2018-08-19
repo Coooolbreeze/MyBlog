@@ -19,8 +19,7 @@ export default {
 
 
 <style lang="stylus" scoped>
-#sidebar {
-  display: flex;
+#sidebar
+  display flex
   flex-direction column
-}
 </style>

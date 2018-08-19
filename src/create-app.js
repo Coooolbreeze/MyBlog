@@ -11,8 +11,8 @@ import Loading from './components/loading'
 import Paginate from './components/paginate'
 import Tag from './components/tag'
 import Toolbar from './components/toolbar'
-import Hlghlight from './components/highlight/highlight'
 
+import 'simplemde/dist/simplemde.min.css'
 import 'github-markdown-css/github-markdown.css'
 import 'nprogress/nprogress.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
@@ -26,7 +26,6 @@ Vue.use(Loading)
 Vue.use(Paginate)
 Vue.use(Tag)
 Vue.use(Toolbar)
-Vue.use(Hlghlight)
 
 export default () => {
   const router = createRouter()

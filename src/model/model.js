@@ -28,6 +28,10 @@ class Model extends Request {
   watchPost (id) {
     return this.put(`/posts/${id}/watch`, { noLoad: true })
   }
+
+  likePost (id) {
+    return this.put(`/posts/${id}/like`, { noLoad: true })
+  }
 }
 
 export default new Model()

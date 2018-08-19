@@ -47,7 +47,6 @@ export default {
 
 .main {
   width: 75%;
-  padding: 0 .8em;
   box-sizing: border-box;
 }
 

@@ -40,20 +40,26 @@ export default class Request {
       method,
       data,
       params: data
-    }).then(res => {
-      NProgress.done()
-      if (res) return res.data.data
-      else notify({ content: '删除成功' })
-    }).catch(err => {
-      NProgress.done()
-      const resp = err.response
-      if (resp.status === 401) this.token.refresh().then(_ => this.request(method, url, data, true))
-      else {
-        notify({
-          content: resp.data.message && typeof resp.data.message === 'string' ? resp.data.message : '请求失败，请重试'
-        })
-        throw Error(resp)
-      }
     })
+      .then(res => {
+        NProgress.done()
+        if (res) return res.data.data
+        else notify({ content: '删除成功' })
+      })
+      .catch(err => {
+        NProgress.done()
+        const resp = err.response
+        if (resp.status === 401) {
+          this.token.refresh().then(_ => this.request(method, url, data, true))
+        } else {
+          notify({
+            content:
+              resp.data.message && typeof resp.data.message === 'string'
+                ? resp.data.message
+                : '请求失败，请重试'
+          })
+          throw Error(resp)
+        }
+      })
   }
 }

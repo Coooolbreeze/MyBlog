@@ -1,10 +1,25 @@
 <template>
   <div id="list" v-if="postList">
-    <blog-list-card
-      v-for="post in postList.data"
-      :key="post.id"
-      :post="post"
-    />
+    <transition style="position:relative;" :name="transitionName" mode="out-in">
+      <div :style="!showDetail ? 'position:absolute;top:0' : ''" v-if="showDetail" key="first">
+        <blog-list-card
+          v-for="post in postList.data"
+          :key="post.id"
+          :post="post"
+          @touchstart.native="onTouchstart"
+          @touchend.native="onTouchend"
+        />
+      </div>
+      <div :style="showDetail ? 'position:absolute;top:0' : ''" v-else key="last">
+        <blog-list-card
+          v-for="post in postList.data"
+          :key="post.id"
+          :post="post"
+          @touchstart.native="onTouchstart"
+          @touchend.native="onTouchend"
+        />
+      </div>
+    </transition>
 
     <paginate
       v-if="postList.data && postList.last_page > 1"
@@ -25,6 +40,14 @@ export default {
   },
   asyncData ({ store, router }) {
     return store.dispatch('fetchPosts', router.currentRoute.query)
+  },
+  data () {
+    return {
+      startPageX: 0,
+      startPageY: 0,
+      showDetail: true,
+      transitionName: ''
+    }
   },
   mounted () {
     document.addEventListener('keydown', this.onKeydown)
@@ -65,11 +88,49 @@ export default {
     ...mapActions(['fetchPosts', 'fetchPost', 'fetchTagPosts', 'watchPost']),
     onKeydown: function (event) {
       if (event.keyCode === 37 && this.page > 1) {
-        this.$router.push(this.$route.fullPath + '?page=' + (this.page - 1))
+        this.$router.push(this.$route.path + '?page=' + (this.page - 1))
       } else if (event.keyCode === 39 && this.page < this.postList.last_page) {
-        this.$router.push(this.$route.fullPath + '?page=' + (this.page + 1))
+        this.$router.push(this.$route.path + '?page=' + (this.page + 1))
+      }
+    },
+    onTouchstart: function (event) {
+      this.startPageX = event.changedTouches[0].pageX
+      this.startPageY = event.changedTouches[0].pageY
+    },
+    onTouchend: function (event) {
+      let endPageX = event.changedTouches[0].pageX
+      let endPageY = event.changedTouches[0].pageY
+      let moveDistanceX = this.startPageX - endPageX
+      let moveDistanceY = Math.abs(this.startPageY - endPageY)
+      if (moveDistanceY <= 100) {
+        if (moveDistanceX >= 100 && this.page < this.postList.last_page) {
+          this.showDetail = !this.showDetail
+          this.transitionName = 'left'
+          this.$router.push(this.$route.path + '?page=' + (this.page + 1))
+        } else if (moveDistanceX <= -100 && this.page > 1) {
+          this.showDetail = !this.showDetail
+          this.transitionName = 'right'
+          this.$router.push(this.$route.path + '?page=' + (this.page - 1))
+        }
       }
     }
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+#list
+  padding: 0 .8em
+  overflow-x hidden
+.right-enter-active, .left-enter-active
+  transition all 0.4s ease
+.right-leave-active, .left-leave-active
+  transition all 0.2s cubic-bezier(1, 0.5, 0.8, 1)
+.right-enter, .left-leave-to
+  transform translateX(-300px)
+  opacity 0
+.left-enter, .right-leave-to
+  transform translateX(300px)
+  opacity 0
+</style>
+

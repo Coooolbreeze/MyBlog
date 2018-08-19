@@ -26,11 +26,7 @@ export default _ => {
   })
 
   if (module.hot) {
-    module.hot.accept([
-      './mutations',
-      './getters',
-      './actions'
-    ], _ => {
+    module.hot.accept(['./mutations', './getters', './actions'], _ => {
       const newMutations = require('./mutations').default
       const newGetters = require('./getters').default
       const newActions = require('./actions').default
