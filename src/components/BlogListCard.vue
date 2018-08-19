@@ -127,7 +127,7 @@ export default {
           justify-content flex-end
         i
           display flex
-          align-items center
+          align-items flex-end
           font-size 0.85rem
           color #999999
           padding-left 0.5rem

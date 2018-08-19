@@ -110,7 +110,7 @@ export default {
     margin 0.9em 0
     i
       display flex
-      align-items center
+      align-items flex-end
       font-size 0.9rem
       color #999999
       padding-left 0.5rem
@@ -175,9 +175,8 @@ export default {
     h1
       font-size 1.2rem
     .about
-      margin 0.3em 0 i {
-        font-size: 0.78rem
-      }
+      margin 0.3em 0 i
+        font-size 0.78rem
     .detail
       margin 0.8em 0
       font-size 0.9rem
