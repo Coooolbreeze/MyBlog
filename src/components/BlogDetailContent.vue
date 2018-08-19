@@ -112,6 +112,7 @@ export default {
     background red
     i
       display flex
+      height 0
       align-items center
       font-size 0.9rem
       color #999999
