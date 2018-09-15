@@ -107,7 +107,7 @@ export default {
     display flex
     justify-content center
     align-items center
-    margin 0.9em 0
+    margin 1.5em 0
     i
       display flex
       align-items center

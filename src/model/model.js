@@ -14,19 +14,15 @@ class Model extends Request {
   }
 
   getTagPosts (id, data) {
-    return this.get(`/tags/${id}`, { ...data, limit: 8 })
+    return this.get(`/tags/${id}`, { ...data, limit: 1 })
   }
 
   getPosts (data) {
-    return this.get('/posts', { ...data, limit: 8 })
+    return this.get('/posts', { ...data, limit: 1 })
   }
 
   getPost (id) {
     return this.get(`/posts/${id}`)
-  }
-
-  watchPost (id) {
-    return this.put(`/posts/${id}/watch`, { noLoad: true })
   }
 
   likePost (id) {

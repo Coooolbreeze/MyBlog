@@ -1,5 +1,5 @@
 <template>
-  <div id="detail">
+  <div v-if="post.id" id="detail">
     <transition style="position:relative;" :name="transitionName" mode="out-in" v-if="post">
       <blog-detail-content :style="!showDetail ? 'position:absolute;top:0' : ''" v-if="showDetail" key="first" :post="post" @touchstart.native="onTouchstart" @touchend.native="onTouchend" />
       <blog-detail-content :style="showDetail ? 'position:absolute;top:0' : ''" v-else key="last" :post="post" @touchstart.native="onTouchstart" @touchend.native="onTouchend" />
@@ -32,45 +32,31 @@ export default {
   },
   mounted () {
     document.addEventListener('keydown', this.onKeydown)
-    !this.post && this.fetchPost(this.postId)
+    !this.post.id && this.fetchPost(this.postId)
   },
   beforeRouteUpdate (to, from, next) {
-    if (!this.posts[to.params.id]) {
-      this.fetchPost(to.params.id).then(_ => next())
-    } else {
-      next()
-      this.watchPost(to.params.id)
-    }
+    this.fetchPost(to.params.id).then(_ => next())
   },
   beforeRouteLeave (to, from, next) {
     document.removeEventListener('keydown', this.onKeydown)
     if (to.name !== 'blog-list' && to.name !== 'blog-tags') {
       notify({ content: '暂未开放' })
     } else {
-      if (to.name === 'blog-list' && !this.postsList[to.query.page || 1]) {
+      if (to.name === 'blog-list') {
         this.fetchPosts(to.query).then(_ => next())
-      } else if (
-        to.name === 'blog-tags' &&
-        (!this.tagPosts[to.params.id] ||
-          !this.tagPosts[to.params.id][to.query.page || 1])
-      ) {
-        this.fetchTagPosts({ id: to.params.id, data: to.query }).then(_ =>
-          next()
-        )
+      } else if (to.name === 'blog-tags') {
+        this.fetchTagPosts({ id: to.params.id, data: to.query }).then(_ => next())
       } else next()
     }
   },
   computed: {
-    ...mapState(['tagPosts', 'posts', 'postsList']),
+    ...mapState(['post']),
     postId: function () {
       return this.$route.params.id
-    },
-    post: function () {
-      return this.posts[this.postId]
     }
   },
   methods: {
-    ...mapActions(['fetchTagPosts', 'fetchPost', 'fetchPosts', 'watchPost']),
+    ...mapActions(['fetchTagPosts', 'fetchPost', 'fetchPosts']),
     onKeydown: function (event) {
       if (event.keyCode === 37 && this.post.prev) {
         this.$router.push('/blog/' + this.post.prev.id)

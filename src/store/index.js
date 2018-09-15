@@ -12,8 +12,8 @@ const state = {
   links: null,
   tags: null,
   tagPosts: {},
-  postsList: {},
-  posts: {}
+  posts: {},
+  post: {}
 }
 
 export default _ => {

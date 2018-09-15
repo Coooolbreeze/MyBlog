@@ -1,9 +1,9 @@
 <template>
-  <div id="list" v-if="postList">
+  <div id="list" v-if="posts.data">
     <transition style="position:relative;" :name="transitionName" mode="out-in">
       <div :style="!showDetail ? 'position:absolute;top:0' : ''" v-if="showDetail" key="first">
         <blog-list-card
-          v-for="post in postList.data"
+          v-for="post in posts.data"
           :key="post.id"
           :post="post"
           @touchstart.native="onTouchstart"
@@ -12,7 +12,7 @@
       </div>
       <div :style="showDetail ? 'position:absolute;top:0' : ''" v-else key="last">
         <blog-list-card
-          v-for="post in postList.data"
+          v-for="post in posts.data"
           :key="post.id"
           :post="post"
           @touchstart.native="onTouchstart"
@@ -22,8 +22,8 @@
     </transition>
 
     <paginate
-      v-if="postList.data && postList.last_page > 1"
-      :page-count="postList.last_page"
+      v-if="posts.data && posts.last_page > 1"
+      :page-count="posts.last_page"
       :current-page="page"
     />
   </div>
@@ -51,45 +51,37 @@ export default {
   },
   mounted () {
     document.addEventListener('keydown', this.onKeydown)
-    !this.postList && this.fetchPosts(this.query)
+    !this.posts.data && this.fetchPosts(this.query)
   },
   beforeRouteUpdate (to, from, next) {
-    if (!this.postsList[to.query.page || 1]) {
-      this.fetchPosts(to.query).then(_ => next())
-    } else next()
+    this.fetchPosts(to.query).then(_ => next())
   },
   beforeRouteLeave (to, from, next) {
     document.removeEventListener('keydown', this.onKeydown)
     if (to.name !== 'blog-detail' && to.name !== 'blog-tags') notify({ content: '暂未开放' })
     else {
-      if (to.name === 'blog-tags' && (!this.tagPosts[to.params.id] || !this.tagPosts[to.params.id][to.query.page || 1])) {
+      if (to.name === 'blog-tags') {
         this.fetchTagPosts({ id: to.params.id, data: to.query }).then(_ => next())
-      } else if (to.name === 'blog-detail' && !this.posts[to.params.id]) {
+      } else if (to.name === 'blog-detail') {
         this.fetchPost(to.params.id).then(_ => next())
-      } else {
-        to.name === 'blog-detail' && this.watchPost(to.params.id)
-        next()
-      }
+      } else next()
     }
   },
   computed: {
-    ...mapState(['postsList', 'posts', 'tagPosts']),
+    ...mapState(['posts']),
     query: function () {
       return this.$route.query
     },
     page: function () {
       return this.query.page ? parseInt(this.query.page) : 1
-    },
-    postList: function () {
-      return this.postsList[this.page]
     }
   },
   methods: {
-    ...mapActions(['fetchPosts', 'fetchPost', 'fetchTagPosts', 'watchPost']),
+    ...mapActions(['fetchPosts', 'fetchPost', 'fetchTagPosts']),
     onKeydown: function (event) {
       if (event.keyCode === 37 && this.page > 1) {
         this.$router.push(this.$route.path + '?page=' + (this.page - 1))
-      } else if (event.keyCode === 39 && this.page < this.postList.last_page) {
+      } else if (event.keyCode === 39 && this.page < this.posts.last_page) {
         this.$router.push(this.$route.path + '?page=' + (this.page + 1))
       }
     },
@@ -103,7 +95,7 @@ export default {
       let moveDistanceX = this.startPageX - endPageX
       let moveDistanceY = Math.abs(this.startPageY - endPageY)
       if (moveDistanceY <= 100) {
-        if (moveDistanceX >= 100 && this.page < this.postList.last_page) {
+        if (moveDistanceX >= 100 && this.page < this.posts.last_page) {
           this.showDetail = !this.showDetail
           this.transitionName = 'left'
           this.$router.push(this.$route.path + '?page=' + (this.page + 1))
