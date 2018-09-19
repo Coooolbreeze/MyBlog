@@ -14,11 +14,11 @@ class Model extends Request {
   }
 
   getTagPosts (id, data) {
-    return this.get(`/tags/${id}`, { ...data, limit: 1 })
+    return this.get(`/tags/${id}`, { ...data, limit: 8 })
   }
 
   getPosts (data) {
-    return this.get('/posts', { ...data, limit: 1 })
+    return this.get('/posts', { ...data, limit: 8 })
   }
 
   getPost (id) {

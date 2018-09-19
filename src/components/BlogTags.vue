@@ -1,9 +1,9 @@
 <template>
-  <div id="list" v-if="posts">
+  <div id="list" v-if="tagPosts">
     <transition style="position:relative;" :name="transitionName" mode="out-in">
       <div :style="!showDetail ? 'position:absolute;top:0' : ''" v-if="showDetail" key="first">
         <blog-list-card
-          v-for="post in posts.data"
+          v-for="post in tagPosts.data"
           :key="post.id"
           :post="post"
           @touchstart.native="onTouchstart"
@@ -12,7 +12,7 @@
       </div>
       <div :style="showDetail ? 'position:absolute;top:0' : ''" v-else key="last">
         <blog-list-card
-          v-for="post in posts.data"
+          v-for="post in tagPosts.data"
           :key="post.id"
           :post="post"
           @touchstart.native="onTouchstart"
@@ -21,7 +21,7 @@
       </div>
     </transition>
 
-    <paginate v-if="posts.data && posts.last_page > 1" :page-count="posts.last_page" :current-page="page" />
+    <paginate v-if="tagPosts.data && tagPosts.last_page > 1" :page-count="tagPosts.last_page" :current-page="page" />
   </div>
 </template>
 
@@ -50,7 +50,7 @@ export default {
   },
   mounted () {
     document.addEventListener('keydown', this.onKeydown)
-    !this.posts && this.fetchTagPosts({ id: this.id, data: this.query })
+    !this.tagPosts.data && this.fetchTagPosts({ id: this.id, data: this.query })
   },
   beforeRouteUpdate (to, from, next) {
     this.fetchTagPosts({ id: to.params.id, data: to.query }).then(_ => next())
@@ -76,9 +76,6 @@ export default {
     },
     page: function () {
       return this.query.page ? parseInt(this.query.page) : 1
-    },
-    posts: function () {
-      return this.tagPosts.posts
     }
   },
   methods: {

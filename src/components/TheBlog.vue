@@ -30,65 +30,37 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-#body {
-  width: 100%;
-  padding-top: .8em;
-  box-sizing: border-box;
-}
-
-.container {
-  flex-direction column;
-}
-
-.content {
-  display: flex;
+#body
+  width 100%
+  padding-top 0.8em
+  box-sizing border-box
+.container
+  flex-direction column
+.content
+  display flex
   justify-content space-between
-}
-
-.main {
-  width: 75%;
-  box-sizing: border-box;
-}
-
-.sidebar {
-  width: 25%;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .1s;
-}
-
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
-
-@media (max-width: 1366px) {
-  .container {
-    width: 95%;
-  }
-}
-
-@media (max-width: 1200px) {
-  .main {
-    width: 70%;
-  }
-
-  .sidebar {
-    width: 30%;
-  }
-}
-
-@media (max-width: 960px) {
-  .container {
-    width: 100%;
-  }
-
-  .main {
-    width: 100%;
-  }
-
-  .sidebar {
-    display: none;
-  }
-}
+.main
+  width 75%
+  box-sizing border-box
+.sidebar
+  width 25%
+.fade-enter-active, .fade-leave-active
+  transition opacity 0.1s
+.fade-enter, .fade-leave-to
+  opacity 0
+@media (max-width: 1366px)
+  .container
+    width 95%
+@media (max-width: 1200px)
+  .main
+    width 70%
+  .sidebar
+    width 30%
+@media (max-width: 960px)
+  .container
+    width 100%
+  .main
+    width 100%
+  .sidebar
+    display none
 </style>

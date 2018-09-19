@@ -39,9 +39,8 @@ export default {
   },
   beforeRouteLeave (to, from, next) {
     document.removeEventListener('keydown', this.onKeydown)
-    if (to.name !== 'blog-list' && to.name !== 'blog-tags') {
-      notify({ content: '暂未开放' })
-    } else {
+    if (to.name !== 'blog-list' && to.name !== 'blog-tags') notify({ content: '暂未开放' })
+    else {
       if (to.name === 'blog-list') {
         this.fetchPosts(to.query).then(_ => next())
       } else if (to.name === 'blog-tags') {

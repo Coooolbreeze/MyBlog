@@ -23,10 +23,6 @@ export default {
   fetchPost ({ commit, state }, id) {
     return model.getPost(id).then(res => commit('fillPost', res))
   },
-  watchPost ({ commit, state }, id) {
-    commit('addPostWatch', parseInt(id))
-    return model.watchPost(id)
-  },
   likePost ({ commit, state }, id) {
     commit('addPostLike', parseInt(id))
     return model.likePost(id)
