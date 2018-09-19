@@ -70,7 +70,7 @@ export default {
     },
     onSearch () {
       if (this.searchText.trim()) {
-        window.open('https://www.baidu.com/s?wd=' + this.searchText)
+        this.$router.replace(`/blog?search=${this.searchText}`)
       }
     }
   }
