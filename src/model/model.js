@@ -14,7 +14,7 @@ class Model extends Request {
   }
 
   getTagPosts (id, data) {
-    return this.get(`/tags/${id}`, { ...data, limit: 8 })
+    return this.get(`/tags/${id}`, { ...data, limit: 4 })
   }
 
   getPosts (data) {
