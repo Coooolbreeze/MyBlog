@@ -58,7 +58,7 @@ export default class Request {
                 ? resp.data.message
                 : '请求失败，请重试'
           })
-          throw Error(resp)
+          // throw Error(resp)
         }
       })
   }
