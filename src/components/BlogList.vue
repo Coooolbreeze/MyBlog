@@ -39,6 +39,7 @@ export default {
     BlogListCard
   },
   asyncData ({ store, router }) {
+    console.log(router.currentRoute.query)
     return store.dispatch('fetchPosts', router.currentRoute.query)
   },
   data () {
